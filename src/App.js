@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+//Components
+import Login from "./views/Login";
+import SideBar from "./views/SideBar";
+import ChatScreen from "./views/ChatScreen";
+//Firebase
+import app from "./firebase/credentials";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const auth = getAuth(app);
 
 function App() {
+  const [usuarioGlobal, setUsuarioGlobal] = useState(null);
+  const [activeChannel, setActiveChannel] = useState(null);
+  onAuthStateChanged(auth, (UsuarioFirebase) => {
+    //Revisar si se inició sesión o se cerró
+    if (UsuarioFirebase) {
+      setUsuarioGlobal(UsuarioFirebase);
+    } else {
+      setUsuarioGlobal(null);
+    }
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {usuarioGlobal ? (
+        <>
+          <SideBar
+            usuarioGlobal={usuarioGlobal}
+            setActiveChannel={setActiveChannel}
+          />
+          <ChatScreen
+            activeChannel={activeChannel}
+            usuarioGlobal={usuarioGlobal}
+          />
+        </>
+      ) : (
+        <Login />
+      )}
     </div>
   );
 }
