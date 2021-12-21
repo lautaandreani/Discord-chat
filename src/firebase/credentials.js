@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDhhUllJRY_Tus5D98EBnCOVYE3h11wLzA",
-  authDomain: "discord-chat-app.firebaseapp.com",
-  projectId: "discord-chat-app",
-  storageBucket: "discord-chat-app.appspot.com",
-  messagingSenderId: "475086448771",
-  appId: "1:475086448771:web:56f9b2d41743e2741653b6"
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
 };
 
 // Initialize Firebase
